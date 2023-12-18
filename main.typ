@@ -5,6 +5,7 @@
   title: "Olimpiada Chilena de Informática 2015-2023",
   subtitle: "Problemas de la OCI",
   author: "Matías Fernández Taipe",
+  date: "18 de Diciembre de 2023",
   presentation: [
     La Olimpiada Chilena de Informática (OCI) es una competencia nacional de programación para estudiantes de secundaria organizada por la Sociedad Chilena de Ciencia de la Computación.
 

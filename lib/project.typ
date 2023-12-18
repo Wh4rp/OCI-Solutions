@@ -2,6 +2,7 @@
   title: "",
   subtitle: "",
   author: "",
+  date: "",
   presentation: none,
   doc,
 ) = {
@@ -26,6 +27,13 @@
     #heading(level: 1, outlined: false)[#title]
     #heading(level: 2, outlined: false)[#subtitle]
     #heading(level: 3, outlined: false)[#author]
+  ])
+
+  move(dy: 50%, align(end)[
+    #set text(
+      size: 12pt,
+    )
+    #heading(level: 2, outlined: false)[#date]
   ])
 
   
