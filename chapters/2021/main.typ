@@ -1,3 +1,4 @@
+#import "@preview/cetz:0.1.2"
 #import "../../lib/problem.typ": *
 
 == Final
@@ -110,6 +111,33 @@
 
     $ "max_sum"(i, j) = max("max_sum"(i - 1, j) + "arriba"(i, j), "max_sum"(i, j - 1) + "izquierda"(i, j)) $
 
+    #figure(
+      caption: [Posibles casillas de procedencia para llegar a $(i, j)$],
+      align(center)[
+        #cetz.canvas({
+          import cetz.draw: *
+          grid((0,0), (8,6), step: 2, help-lines: true)
+          // (i, j)
+          content((5, 3), [$(i, j)$], name: "position to go")
+          content((3, 3), [$(i, j-1)$], name: "position from left")
+          content((5, 5), [$(i-1, j)$], name: "position from top")
+          // Arrow 1 from left to "position"
+          place-marks(bezier-through(
+            (3.2,3.2), (3.8,3.8), (4.8,3.3)),
+            (mark: ">", size: .2, pos: 1),
+            fill: black
+          )
+          // Arrow 2 from top to "position"
+          place-marks(bezier-through(
+            (5,4.7), (5.5,4), (5.2,3.3)),
+            (mark: ">", size: .2, pos: 1),
+            fill: black
+          )
+        })
+      ]
+    )
+
+
     Donde $"arriba"(i, j)$ es el puntaje que se suma llegando desde arriba, y lo análogo para $"izquierda"(i, j)$.
 
     Esta fórmula es válida siempre y cuando $0 < i <= M$ y $0 < j <= N$.
@@ -120,9 +148,39 @@
 
     $ "max_sum"(i, j) = "max_sum"(i - 1, j) + "arriba"(i, j) $
 
+    #figure(
+      caption: [Primera fila donde $i = 0$],
+      align(center)[
+        #cetz.canvas({
+          import cetz.draw: *
+          let (n, m) = (4, 4)
+          fill(red)
+          stroke(none)
+          rect((0, n), (n, m - 1))
+          stroke(black)
+          grid((0,0), (n, m), help-lines: true)
+        })
+      ]
+    )
+
     Por otro lado cuando $i != 0$ y $j = 0$, nos estaríamos fijando en la primera fila. Donde la única forma de llegar a $(i, j)$ es ir hacia la derecha desde $(0, 0)$. Por lo que está dado por:
 
     $ "max_sum"(i, j) = "max_sum"(i, j - 1) + "izquierda"(i, j) $
+
+    #figure(
+      caption: [Primera columna donde $j = 0$],
+      align(center)[
+        #cetz.canvas({
+          import cetz.draw: *
+          let (n, m) = (4, 4)
+          fill(red)
+          stroke(none)
+          rect((0, 0), (1,n))
+          stroke(black)
+          grid((0,0), (n, m), help-lines: true)
+        })
+      ]
+    )
 
     Así en el código podemos hacer un array de dos dimensiones donde guardaremos las sumas máximas hasta cada casilla. Y luego recorrer la matriz de izquierda a derecha y de arriba hacia abajo, calculando las sumas máximas para cada casilla. Finalmente la suma máxima hasta la casilla $(M - 1, N - 1)$ es la solución al problema.
 
